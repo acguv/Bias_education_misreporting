@@ -1,0 +1,313 @@
+year	sex	agegrp	edu	dx	pop
+1990-1992	Males	25-29	Less than HS	5	2735
+1990-1992	Males	30-34	Less than HS	10	5692
+1990-1992	Males	35-39	Less than HS	14	4603
+1990-1992	Males	40-44	Less than HS	25	4358
+1990-1992	Males	45-49	Less than HS	32	5059
+1990-1992	Males	50-54	Less than HS	47	5374
+1990-1992	Males	55-59	Less than HS	101	6006
+1990-1992	Males	60-64	Less than HS	205	7742
+1990-1992	Males	65-69	Less than HS	275	8322
+1990-1992	Males	70-74	Less than HS	344	7586
+1990-1992	Males	75-79	Less than HS	437	6356
+1990-1992	Males	80-84	Less than HS	437	4170
+1990-1992	Males	85+	Less than HS	467	3014
+1990-1992	Males	25-29	HS	17	10176
+1990-1992	Males	30-34	HS	22	21333
+1990-1992	Males	35-39	HS	31	19026
+1990-1992	Males	40-44	HS	44	15199
+1990-1992	Males	45-49	HS	49	13366
+1990-1992	Males	50-54	HS	82	12158
+1990-1992	Males	55-59	HS	103	10653
+1990-1992	Males	60-64	HS	174	9691
+1990-1992	Males	65-69	HS	210	9017
+1990-1992	Males	70-74	HS	283	7402
+1990-1992	Males	75-79	HS	272	4412
+1990-1992	Males	80-84	HS	185	2017
+1990-1992	Males	85+	HS	139	935
+1990-1992	Males	25-29	Some college	7	5456
+1990-1992	Males	30-34	Some college	21	10700
+1990-1992	Males	35-39	Some college	20	11814
+1990-1992	Males	40-44	Some college	19	11208
+1990-1992	Males	45-49	Some college	28	7658
+1990-1992	Males	50-54	Some college	23	5566
+1990-1992	Males	55-59	Some college	32	4383
+1990-1992	Males	60-64	Some college	75	3892
+1990-1992	Males	65-69	Some college	85	3564
+1990-1992	Males	70-74	Some college	110	2832
+1990-1992	Males	75-79	Some college	76	1666
+1990-1992	Males	80-84	Some college	70	893
+1990-1992	Males	85+	Some college	58	464
+1990-1992	Males	25-29	College or more	2	5842
+1990-1992	Males	30-34	College or more	10	13142
+1990-1992	Males	35-39	College or more	20	15385
+1990-1992	Males	40-44	College or more	16	16666
+1990-1992	Males	45-49	College or more	15	12405
+1990-1992	Males	50-54	College or more	32	8295
+1990-1992	Males	55-59	College or more	39	7102
+1990-1992	Males	60-64	College or more	67	6371
+1990-1992	Males	65-69	College or more	97	5162
+1990-1992	Males	70-74	College or more	82	3511
+1990-1992	Males	75-79	College or more	87	2089
+1990-1992	Males	80-84	College or more	100	1187
+1990-1992	Males	85+	College or more	62	561
+1997-1999	Males	25-29	Less than HS	0	1179
+1997-1999	Males	30-34	Less than HS	15	5426
+1997-1999	Males	35-39	Less than HS	25	10929
+1997-1999	Males	40-44	Less than HS	48	10173
+1997-1999	Males	45-49	Less than HS	51	8357
+1997-1999	Males	50-54	Less than HS	84	9229
+1997-1999	Males	55-59	Less than HS	145	10128
+1997-1999	Males	60-64	Less than HS	211	10434
+1997-1999	Males	65-69	Less than HS	401	12032
+1997-1999	Males	70-74	Less than HS	670	13642
+1997-1999	Males	75-79	Less than HS	793	11064
+1997-1999	Males	80-84	Less than HS	812	8061
+1997-1999	Males	85+	Less than HS	1230	6780
+1997-1999	Males	25-29	HS	3	4591
+1997-1999	Males	30-34	HS	26	20798
+1997-1999	Males	35-39	HS	64	41941
+1997-1999	Males	40-44	HS	92	41648
+1997-1999	Males	45-49	HS	138	32457
+1997-1999	Males	50-54	HS	166	28009
+1997-1999	Males	55-59	HS	224	24688
+1997-1999	Males	60-64	HS	291	21396
+1997-1999	Males	65-69	HS	397	18738
+1997-1999	Males	70-74	HS	584	15548
+1997-1999	Males	75-79	HS	709	12628
+1997-1999	Males	80-84	HS	624	7089
+1997-1999	Males	85+	HS	562	3605
+1997-1999	Males	25-29	Some college	4	3527
+1997-1999	Males	30-34	Some college	10	12913
+1997-1999	Males	35-39	Some college	34	22573
+1997-1999	Males	40-44	Some college	42	25331
+1997-1999	Males	45-49	Some college	73	25007
+1997-1999	Males	50-54	Some college	96	18746
+1997-1999	Males	55-59	Some college	122	12888
+1997-1999	Males	60-64	Some college	128	9365
+1997-1999	Males	65-69	Some college	191	8035
+1997-1999	Males	70-74	Some college	216	6465
+1997-1999	Males	75-79	Some college	290	5475
+1997-1999	Males	80-84	Some college	227	2969
+1997-1999	Males	85+	Some college	261	1714
+1997-1999	Males	25-29	College or more	2	3869
+1997-1999	Males	30-34	College or more	12	14748
+1997-1999	Males	35-39	College or more	16	26954
+1997-1999	Males	40-44	College or more	23	31915
+1997-1999	Males	45-49	College or more	69	34737
+1997-1999	Males	50-54	College or more	88	30244
+1997-1999	Males	55-59	College or more	110	19985
+1997-1999	Males	60-64	College or more	116	14927
+1997-1999	Males	65-69	College or more	215	12817
+1997-1999	Males	70-74	College or more	272	10653
+1997-1999	Males	75-79	College or more	285	7091
+1997-1999	Males	80-84	College or more	258	3705
+1997-1999	Males	85+	College or more	316	2225
+2004-2006	Males	25-29	Less than HS	1	617
+2004-2006	Males	30-34	Less than HS	4	2248
+2004-2006	Males	35-39	Less than HS	24	5490
+2004-2006	Males	40-44	Less than HS	52	12008
+2004-2006	Males	45-49	Less than HS	87	13454
+2004-2006	Males	50-54	Less than HS	107	10520
+2004-2006	Males	55-59	Less than HS	169	10602
+2004-2006	Males	60-64	Less than HS	230	11658
+2004-2006	Males	65-69	Less than HS	342	11444
+2004-2006	Males	70-74	Less than HS	521	11905
+2004-2006	Males	75-79	Less than HS	812	12464
+2004-2006	Males	80-84	Less than HS	907	9323
+2004-2006	Males	85+	Less than HS	1378	8653
+2004-2006	Males	25-29	HS	2	2647
+2004-2006	Males	30-34	HS	9	9905
+2004-2006	Males	35-39	HS	33	23182
+2004-2006	Males	40-44	HS	113	48123
+2004-2006	Males	45-49	HS	228	56734
+2004-2006	Males	50-54	HS	295	45849
+2004-2006	Males	55-59	HS	335	37254
+2004-2006	Males	60-64	HS	430	31980
+2004-2006	Males	65-69	HS	511	26978
+2004-2006	Males	70-74	HS	680	21756
+2004-2006	Males	75-79	HS	819	17034
+2004-2006	Males	80-84	HS	1036	12335
+2004-2006	Males	85+	HS	1169	8219
+2004-2006	Males	25-29	Some college	3	2671
+2004-2006	Males	30-34	Some college	8	9627
+2004-2006	Males	35-39	Some college	28	18042
+2004-2006	Males	40-44	Some college	64	30309
+2004-2006	Males	45-49	Some college	133	35079
+2004-2006	Males	50-54	Some college	185	36036
+2004-2006	Males	55-59	Some college	214	30198
+2004-2006	Males	60-64	Some college	242	19975
+2004-2006	Males	65-69	Some college	251	13650
+2004-2006	Males	70-74	Some college	311	10300
+2004-2006	Males	75-79	Some college	380	8096
+2004-2006	Males	80-84	Some college	483	5913
+2004-2006	Males	85+	Some college	594	3885
+2004-2006	Males	25-29	College or more	0	2407
+2004-2006	Males	30-34	College or more	3	9821
+2004-2006	Males	35-39	College or more	17	20673
+2004-2006	Males	40-44	College or more	30	34347
+2004-2006	Males	45-49	College or more	53	42283
+2004-2006	Males	50-54	College or more	163	45440
+2004-2006	Males	55-59	College or more	201	44855
+2004-2006	Males	60-64	College or more	221	30334
+2004-2006	Males	65-69	College or more	239	20534
+2004-2006	Males	70-74	College or more	319	16610
+2004-2006	Males	75-79	College or more	462	12874
+2004-2006	Males	80-84	College or more	482	8367
+2004-2006	Males	85+	College or more	639	5314
+1990-1992	Females	25-29	Less than HS	4	2683
+1990-1992	Females	30-34	Less than HS	8	5283
+1990-1992	Females	35-39	Less than HS	7	4427
+1990-1992	Females	40-44	Less than HS	10	4424
+1990-1992	Females	45-49	Less than HS	21	5197
+1990-1992	Females	50-54	Less than HS	26	5455
+1990-1992	Females	55-59	Less than HS	58	6112
+1990-1992	Females	60-64	Less than HS	105	7790
+1990-1992	Females	65-69	Less than HS	199	9150
+1990-1992	Females	70-74	Less than HS	252	9736
+1990-1992	Females	75-79	Less than HS	346	9397
+1990-1992	Females	80-84	Less than HS	400	7450
+1990-1992	Females	85+	Less than HS	604	6478
+1990-1992	Females	25-29	HS	3	11084
+1990-1992	Females	30-34	HS	13	23188
+1990-1992	Females	35-39	HS	20	21664
+1990-1992	Females	40-44	HS	24	20446
+1990-1992	Females	45-49	HS	44	18136
+1990-1992	Females	50-54	HS	44	15715
+1990-1992	Females	55-59	HS	75	14708
+1990-1992	Females	60-64	HS	130	14842
+1990-1992	Females	65-69	HS	219	15069
+1990-1992	Females	70-74	HS	239	12122
+1990-1992	Females	75-79	HS	265	8006
+1990-1992	Females	80-84	HS	213	4433
+1990-1992	Females	85+	HS	285	2848
+1990-1992	Females	25-29	Some college	1	6524
+1990-1992	Females	30-34	Some college	6	13211
+1990-1992	Females	35-39	Some college	13	13066
+1990-1992	Females	40-44	Some college	16	11723
+1990-1992	Females	45-49	Some college	16	8479
+1990-1992	Females	50-54	Some college	21	6016
+1990-1992	Females	55-59	Some college	17	4846
+1990-1992	Females	60-64	Some college	44	4812
+1990-1992	Females	65-69	Some college	57	4607
+1990-1992	Females	70-74	Some college	67	3891
+1990-1992	Females	75-79	Some college	88	2778
+1990-1992	Females	80-84	Some college	99	1903
+1990-1992	Females	85+	Some college	112	1301
+1990-1992	Females	25-29	College or more	3	6375
+1990-1992	Females	30-34	College or more	4	13335
+1990-1992	Females	35-39	College or more	2	14218
+1990-1992	Females	40-44	College or more	13	13283
+1990-1992	Females	45-49	College or more	15	8872
+1990-1992	Females	50-54	College or more	23	5819
+1990-1992	Females	55-59	College or more	16	4186
+1990-1992	Females	60-64	College or more	26	3764
+1990-1992	Females	65-69	College or more	38	3065
+1990-1992	Females	70-74	College or more	46	2659
+1990-1992	Females	75-79	College or more	45	1947
+1990-1992	Females	80-84	College or more	56	1485
+1990-1992	Females	85+	College or more	91	1071
+1997-1999	Females	25-29	Less than HS	0	1185
+1997-1999	Females	30-34	Less than HS	6	4950
+1997-1999	Females	35-39	Less than HS	17	9907
+1997-1999	Females	40-44	Less than HS	27	9339
+1997-1999	Females	45-49	Less than HS	31	7944
+1997-1999	Females	50-54	Less than HS	68	9487
+1997-1999	Females	55-59	Less than HS	103	10351
+1997-1999	Females	60-64	Less than HS	161	11039
+1997-1999	Females	65-69	Less than HS	277	13519
+1997-1999	Females	70-74	Less than HS	438	15428
+1997-1999	Females	75-79	Less than HS	660	15944
+1997-1999	Females	80-84	Less than HS	926	14082
+1997-1999	Females	85+	Less than HS	2111	16307
+1997-1999	Females	25-29	HS	3	4567
+1997-1999	Females	30-34	HS	6	21638
+1997-1999	Females	35-39	HS	51	44228
+1997-1999	Females	40-44	HS	63	45580
+1997-1999	Females	45-49	HS	92	40924
+1997-1999	Females	50-54	HS	141	38223
+1997-1999	Females	55-59	HS	195	32652
+1997-1999	Females	60-64	HS	255	29771
+1997-1999	Females	65-69	HS	362	29026
+1997-1999	Females	70-74	HS	603	28100
+1997-1999	Females	75-79	HS	760	22928
+1997-1999	Females	80-84	HS	850	14504
+1997-1999	Females	85+	HS	1146	10253
+1997-1999	Females	25-29	Some college	2	4252
+1997-1999	Females	30-34	Some college	6	15521
+1997-1999	Females	35-39	Some college	25	28152
+1997-1999	Females	40-44	Some college	22	30099
+1997-1999	Females	45-49	Some college	57	26871
+1997-1999	Females	50-54	Some college	57	20836
+1997-1999	Females	55-59	Some college	66	14544
+1997-1999	Females	60-64	Some college	95	10701
+1997-1999	Females	65-69	Some college	114	9911
+1997-1999	Females	70-74	Some college	183	9366
+1997-1999	Females	75-79	Some college	252	8031
+1997-1999	Females	80-84	Some college	266	4946
+1997-1999	Females	85+	Some college	474	4612
+1997-1999	Females	25-29	College or more	2	4462
+1997-1999	Females	30-34	College or more	5	16207
+1997-1999	Females	35-39	College or more	12	27802
+1997-1999	Females	40-44	College or more	28	30803
+1997-1999	Females	45-49	College or more	45	29858
+1997-1999	Females	50-54	College or more	38	22785
+1997-1999	Females	55-59	College or more	49	14147
+1997-1999	Females	60-64	College or more	59	9490
+1997-1999	Females	65-69	College or more	86	7839
+1997-1999	Females	70-74	College or more	100	6721
+1997-1999	Females	75-79	College or more	140	5240
+1997-1999	Females	80-84	College or more	164	3468
+1997-1999	Females	85+	College or more	366	3477
+2004-2006	Females	25-29	Less than HS	2	559
+2004-2006	Females	30-34	Less than HS	2	2269
+2004-2006	Females	35-39	Less than HS	12	4846
+2004-2006	Females	40-44	Less than HS	36	10792
+2004-2006	Females	45-49	Less than HS	47	12037
+2004-2006	Females	50-54	Less than HS	55	9954
+2004-2006	Females	55-59	Less than HS	132	10684
+2004-2006	Females	60-64	Less than HS	214	12223
+2004-2006	Females	65-69	Less than HS	261	12350
+2004-2006	Females	70-74	Less than HS	401	13803
+2004-2006	Females	75-79	Less than HS	711	15636
+2004-2006	Females	80-84	Less than HS	951	14459
+2004-2006	Females	85+	Less than HS	2748	20464
+2004-2006	Females	25-29	HS	0	2192
+2004-2006	Females	30-34	HS	8	8753
+2004-2006	Females	35-39	HS	37	22617
+2004-2006	Females	40-44	HS	79	49434
+2004-2006	Females	45-49	HS	163	59924
+2004-2006	Females	50-54	HS	202	54203
+2004-2006	Females	55-59	HS	262	50768
+2004-2006	Females	60-64	HS	371	43299
+2004-2006	Females	65-69	HS	430	37471
+2004-2006	Females	70-74	HS	697	34701
+2004-2006	Females	75-79	HS	1013	31492
+2004-2006	Females	80-84	HS	1413	25884
+2004-2006	Females	85+	HS	2429	21628
+2004-2006	Females	25-29	Some college	2	2973
+2004-2006	Females	30-34	Some college	4	11366
+2004-2006	Females	35-39	Some college	14	21442
+2004-2006	Females	40-44	Some college	54	37669
+2004-2006	Females	45-49	Some college	77	43368
+2004-2006	Females	50-54	Some college	128	40142
+2004-2006	Females	55-59	Some college	148	33605
+2004-2006	Females	60-64	Some college	179	23234
+2004-2006	Females	65-69	Some college	169	16316
+2004-2006	Females	70-74	Some college	249	13288
+2004-2006	Females	75-79	Some college	382	11998
+2004-2006	Females	80-84	Some college	501	9967
+2004-2006	Females	85+	Some college	962	8771
+2004-2006	Females	25-29	College or more	0	2912
+2004-2006	Females	30-34	College or more	6	11486
+2004-2006	Females	35-39	College or more	9	22703
+2004-2006	Females	40-44	College or more	15	36324
+2004-2006	Females	45-49	College or more	41	42151
+2004-2006	Females	50-54	College or more	86	41839
+2004-2006	Females	55-59	College or more	110	35937
+2004-2006	Females	60-64	College or more	104	22913
+2004-2006	Females	65-69	College or more	110	14192
+2004-2006	Females	70-74	College or more	130	10271
+2004-2006	Females	75-79	College or more	200	8670
+2004-2006	Females	80-84	College or more	277	6270
+2004-2006	Females	85+	College or more	667	6137
