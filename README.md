@@ -9,6 +9,5 @@ To restore all package versions, please follow these steps:
 
 1.  Install the required packages by running: `renv::restore(promt = FALSE)`.
 2.  Verify that all package versions have been restored successfully by running: `renv::status()`
-
-If everything is correct, you should see the message: ```No issues found -- the project is in a consistent state.```
+	If everything is correct, you should see the message: ```No issues found -- the project is in a consistent state.```
 3.  You can now run all scripts in the project.
