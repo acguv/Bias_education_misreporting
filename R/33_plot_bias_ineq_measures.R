@@ -1,7 +1,6 @@
 
 # ---------------------------------------------------------------------------- #
 # Project:  Estimating bias in educational inequalities in mortality
-# Author: Ana C. Gomez-Ugarte
 # Title: Plot relative bias in inequality measures for the 2 group setting,
 # baseline case
 # ---------------------------------------------------------------------------- #
@@ -25,7 +24,7 @@ library(scales)
 #     1. Read data
 # ---------------------------------------------------------------------------- #
 dir_path <- "Results/US"
-file_name <- "scen.rds"
+file_name <- "scen_v2.rds"
 
 rel_bias_cases <- ineq_cases <- list()
 i = 1
@@ -120,18 +119,20 @@ plot_rel_bias_range_ex_aid <- rel_bias_cases %>%
         panel.spacing = unit(1, "lines")) +
   coord_equal()
 
-#### Plot for all measures
+#### Plot for all measures (relative or absolute)
 plot_rel_bias_all <- rel_bias_cases %>% 
   mutate(case = str_sub(case, start = 6)) %>%
   relocate(c(i,j), .before = range_asmr) %>%
   gather("measure", "Bias", "range_asmr":"noi_pair_logit") %>%
   # Select measures to plot
   filter(measure %in% c("aid", "cii_abs", "idll_abs", "noi_pair",
-                        "pall_abs", "par", "range_ex",
-                        "range_sdv") & case == 1) %>%
+                        "pall_abs", "par", "range_ex") & case == 1) %>%
   mutate(measure = factor(measure, levels = c("range_ex", "par", "pall_abs",
-                                              "cii_abs","aid", "noi_pair", "idll_abs",
-                                              "range_sdv"))) %>%   
+                                              "cii_abs","aid", "noi_pair", "idll_abs"))) %>%
+  # filter(measure %in% c("ratio_ex", "paf", "pall_rel",
+  #                       "pseudo_gini","theil", "idll_rel", "noi_pair") & case == 1) %>%
+  # mutate(measure = factor(measure, levels = c("ratio_ex", "paf", "pall_rel",
+  #                                             "pseudo_gini","theil", "idll_rel", "noi_pair"))) %>%
   ggplot(aes(x = i, y = j, fill = Bias)) +
   geom_raster() +
   scale_fill_gradient2( midpoint = 0, limits = c(-1, 1), oob = scales::squish,     
@@ -174,8 +175,10 @@ plot_rel_bias_all <- rel_bias_cases %>%
 #     3. Save figure
 # ---------------------------------------------------------------------------- #
 
-ggsave(plot_rel_bias_range_ex_aid, file = "Figures/bias_2groups_v2.pdf", width = 8.7, height = 4.2, device = cairo_pdf)
+ggsave(plot_rel_bias_range_ex_aid, file = "Figures/US/bias_2groups_v2.pdf", width = 8.7, height = 4.2, device = cairo_pdf)
+ggsave(plot_rel_bias_all, file = "Figures/US/bias_2groups_abs_measures_all_v2.pdf", width = 13.5, height = 13, device = cairo_pdf)
 
-ggsave(plot_rel_bias_all, file = "Figures/bias_2groups_rel_measures_all.pdf", width = 13.5, height = 13, device = cairo_pdf)
+# ggsave(plot_rel_bias_range_ex_aid, file = "Figures/SWE/bias_2groups.pdf", width = 8.7, height = 4.2, device = cairo_pdf)
+# ggsave(plot_rel_bias_all, file = "Figures/SWE/bias_2groups_abs_measures_all_v2.pdf", width = 13.5, height = 13, device = cairo_pdf)
 
 

@@ -1,7 +1,6 @@
 
 # ---------------------------------------------------------------------------- #
 # Project:  Estimating bias in educational inequalities in mortality
-# Author: Ana C. Gomez-Ugarte
 # Title: Estimate education misreporting scenarios for the 3 groups (US data)
 # ---------------------------------------------------------------------------- #
 # Content:
@@ -26,28 +25,28 @@ library(broom)
 # ---------------------------------------------------------------------------- #
 
 # Import functions
-source("R/Function_Simulation.R")
+source("R/01_Function_Simulation.R")
 
 # Smoothed mortality rates, deaths and exposures
-load("inter_data/mx_true_us_2004_2006_hendi_3groups.RData")
+load("inter_data/US/mx_true_us_2004_2006_hendi_3groups_v2.RData")
 
 # WHO standard population
-who_std <- read.csv("Data/WHO_std_single_age_90+.csv")
+who_std <- read.csv("Data/WHO_std_single_age_110.csv")
 
 # ---------------------------------------------------------------------------- #
 #     2. Set up the variables/matrices for the scenarios
 # ---------------------------------------------------------------------------- #
-us_edu <- eta.hat_df
+us_edu <- mx.ungrp_df
 
 # Define variables
 g = 3
-ages = c(30:90)
+ages = c(30:110)
 n = length(ages)
 case_nm = "case_1"
 
 # WHO standard population
 who_std <- who_std %>%
-  filter(Age >= 30 & Age<= 90) %>%
+  # filter(Age >= 30 & Age<= 90) %>%
   mutate(Prop = Prop/sum(Prop)) %>%
   rename(age = Age) 
 
@@ -169,4 +168,4 @@ scen3 = list(scen = scen3, edu_ranks = edu_ranks_3, edu_weights = edu_weights_3,
 # ---------------------------------------------------------------------------- #
 #     4. Save results
 # ---------------------------------------------------------------------------- #
-save(scen3, file = paste0("Results/US/",case_nm,"/scen3.rds"))
+save(scen3, file = paste0("Results/US/",case_nm,"/scen3_v2.rds"))

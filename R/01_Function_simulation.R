@@ -1,7 +1,6 @@
 
 # ---------------------------------------------------------------------------- #
 # Project:  Estimating bias in educational inequalities in mortality
-# Author: Ana C. Gomez-Ugarte
 # Title: Functions
 # ---------------------------------------------------------------------------- #
 

@@ -1,7 +1,6 @@
 
 # ---------------------------------------------------------------------------- #
 # Project:  Estimating bias in educational inequalities in mortality
-# Author: Ana C. Gomez-Ugarte
 # Title: Plot bias in mortality rates for the 2 group setting
 # ---------------------------------------------------------------------------- #
 # Content:
@@ -30,7 +29,7 @@ library(ggpubr)
 case_nm = "case_1"
 
 # Underlying mortality
-load(paste0("Results/US/",case_nm,"/scen.rds"))
+load(paste0("Results/US/",case_nm,"/scen_v2.rds"))
 
 # ---------------------------------------------------------------------------- #
 #     2. Create figures
@@ -49,9 +48,9 @@ under_plot <- scen$scen %>%
                 group = paste(education, Scenario)), linewidth = 1) +
   theme_classic() + xlab("Age") + 
   ylab("") +
-  labs(title = paste0("Underreporting (", under_rate*100, "%)")) +
-  scale_x_continuous(breaks = seq(30,90,10)) +
-  scale_y_continuous(breaks = seq(-8,-2,2), limits = c(-8.5, -1.6)) +
+  labs(title = paste0("B. Underreporting")) +
+  scale_x_continuous(breaks = seq(30,110,10), labels = c(seq(30,100,10), "110+")) +
+  scale_y_continuous(breaks = seq(-8,-2,2), limits = c(-8.5,  -0.4)) +
   scale_size_manual(values = c(0.5, 0.75)) +
   scale_fill_manual(name = "Education", values = c("#781bec", "#f4a300")) + 
   scale_color_manual(name = "Education", values = c("#781bec", "#f4a300"), 
@@ -77,9 +76,9 @@ over_plot <- scen$scen %>%
                 group = paste(education, Scenario)), linewidth = 1) +
   theme_classic() + xlab("Age") + 
   ylab("Mortality rate (log scale)") +
-  labs(title = paste0("Overreporting (", under_rate*100, "%)")) +
-  scale_x_continuous(breaks = seq(30,90,10)) +
-  scale_y_continuous(breaks = seq(-8,-2,2), limits = c(-8.5, -1.6)) +
+  labs(title = paste0("A. Overreporting")) +
+  scale_x_continuous(breaks = seq(30,110,10), labels = c(seq(30,100,10), "110+")) +
+  scale_y_continuous(breaks = seq(-8,-2,2), limits = c(-8.5, -0.4)) +
   scale_size_manual(values = c(0.5, 0.75)) +
   scale_fill_manual(name = "Education", values = c("#781bec", "#f4a300")) + 
   scale_color_manual(name = "Education", values = c("#781bec", "#f4a300"), 
@@ -111,8 +110,8 @@ both_plot <- scen$scen %>%
   theme_classic() + xlab("Age") + 
   ylab("Mortality rate (log scale)") +
   labs(title = paste0("Under- (", under_rate*100, "%) and over-reporting (", over_rate*100, "%)")) +
-  scale_x_continuous(breaks = seq(30,90,10)) +
-  scale_y_continuous(breaks = seq(-8,-2,2), limits = c(-8.5, -1.6)) +
+  scale_x_continuous(breaks = seq(30,110,10), labels = c(seq(30,100,10), "110+")) +
+  scale_y_continuous(breaks = seq(-8,-2,2), limits = c(-8.5, -0.4)) +
   scale_size_manual(values = c(0.5, 0.75)) +
   scale_fill_manual(name = "Education", values = c("#781bec", "#f4a300")) + 
   scale_color_manual(name = "Education", values = c("#781bec", "#f4a300"), 
@@ -128,8 +127,8 @@ both_plot <- scen$scen %>%
 #     2. Save figures
 # ---------------------------------------------------------------------------- #
 
-ggsave(over_under_plot, file = "Figures/mx_2groups.pdf", width = 8.8, height = 4.2)
+ggsave(over_under_plot, file = "Figures/US/mx_2groups_v2.pdf", width = 8.8, height = 4.2, device = cairo_pdf)
 
-ggsave(both_plot, file = "Figures/mx_2groups_both.pdf", width = 175, units = "mm")
+ggsave(both_plot, file = "Figures/US/mx_2groups_both_v2.pdf", width = 175, units = "mm")
 
 

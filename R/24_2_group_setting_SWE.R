@@ -1,8 +1,7 @@
 
 # ---------------------------------------------------------------------------- #
 # Project:  Estimating bias in educational inequalities in mortality
-# Title: Additional analysis. Estimate scenarios for 2 groups with misreporting
-# in death certificates and census (US data)
+# Title": Estimate scenarios for 2 groups (US data)
 # ---------------------------------------------------------------------------- #
 # Content:
 #   0. Working directory, packages and functions
@@ -30,7 +29,7 @@ source("R/01_Function_Simulation.R")
 # ---------------------------------------------------------------------------- #
 
 # Underlying mortality (smooth rates)
-load("inter_data/US/mx_true_us_2004_2006_hendi_2groups_v2.RData")
+load("inter_data/SWE/mx_true_swe_2016_2groups.RData")
 
 # WHO standard population 
 who_std <- read.csv("Data/WHO_std_single_age_110.csv")
@@ -39,11 +38,12 @@ who_std <- read.csv("Data/WHO_std_single_age_110.csv")
 #     2. Set up the variables/matrices for the scenarios
 # ---------------------------------------------------------------------------- #
 
-us_edu <- mx.ungrp_df
+swe_edu <- mx.smooth_df %>%
+  rename(pop = e_smooth)
 
 # Define variables
 g = 2
-ages = unique(us_edu$age)
+ages = unique(mx.smooth_df$age)
 n = length(ages)
 
 # WHO standard population
@@ -52,31 +52,31 @@ who_std <- who_std %>%
   rename(age = Age) 
 
 # Define case
-case_nm = "case_1"
+case_nm = "case_5"
 p = 1          # Case 1, 4, 5
 # p = 0.5        # Case 2
 # p = 5          # Case 3
-ineq = 0       # Cases 1, 2, 3
+# ineq = 0       # Cases 1, 2, 3
 # ineq = 0.5     # Case 4
-# ineq = -0.2     # Case 5
+ineq = -0.2     # Case 5
 
 # True mortality rate
-gamma <- us_edu %>%
+gamma <- swe_edu %>%
   mutate(edu_num = case_when(edu == "Low" ~ 1,
                              edu == "Middle" ~ 2,
                              edu == "High" ~ 3)) %>%
-  filter(edu_num %in% c(1,3) & sex == "Males") %>% # For the first case with only two education groups
+  filter(edu_num %in% c(1,3) & sex == "F") %>% # For the first case with only two education groups
   arrange(sex, edu_num, age) %>%
   mutate(mx = case_when(edu == "Low" ~ mx*exp(ineq),     # Change inequality for cases 1, 4, 5
-                        TRUE ~ mx)) %>%
+                         TRUE ~ mx)) %>%
   .$mx
 
 # Population exposures
-Nx <- us_edu %>%
+Nx <- swe_edu %>%
   mutate(edu_num = case_when(edu == "Low" ~ 1,
                              edu == "Middle" ~ 2,
                              edu == "High" ~ 3)) %>%
-  filter(edu_num %in% c(1,3) & sex == "Males") %>% # For the first case with only two education groups
+  filter(edu_num %in% c(1,3) & sex == "F") %>% # For the first case with only two education groups
   arrange(sex, edu_num, age) %>%
   mutate(pop = case_when(edu == "High" ~ pop * p,             # Change size for cases 1, 2, 3
                          TRUE ~ pop)) %>%
@@ -94,8 +94,8 @@ C <- diag(2*n)
 P <- diag(2*n)
 
 # Education ranks (for inequality measures)
-edu_ranks_2 <- us_edu %>%
-  filter(edu %in% c("Low", "High") & sex == "Males") %>%
+edu_ranks_2 <- swe_edu %>%
+  filter(edu %in% c("Low", "High") & sex == "F") %>%
   mutate(pop = case_when(edu == "High" ~ pop * p,           # Change size for cases 1, 2, 3
                          TRUE ~ pop)) %>%
   mutate(pop = case_when(edu == "Low" ~ pop * exp(-ineq),      # Change inequality for cases 1, 4, 5
@@ -112,8 +112,8 @@ edu_ranks_2 <- us_edu %>%
   gather(education, Edu_ranks, Low:High) 
 
 # Education weights (for inequality measures)
-edu_weights_2 <- us_edu %>%
-  filter(edu %in% c("Low", "High") & sex == "Males") %>% 
+edu_weights_2 <- swe_edu %>%
+  filter(edu %in% c("Low", "High") & sex == "F") %>% 
   mutate(pop = case_when(edu == "High" ~ pop * p,             # Change size for cases 1, 2, 3
                          TRUE ~ pop)) %>%
   mutate(pop = case_when(edu == "Low" ~ pop * exp(-ineq),      # Change inequality for cases 1, 4, 5
@@ -125,18 +125,18 @@ edu_weights_2 <- us_edu %>%
   rename(education = edu, edu_weights = freq)
 
 # Vector with education levels
-edu <- us_edu %>%
+edu <- swe_edu %>%
   mutate(edu_num = case_when(edu == "Low" ~ 1,
                              edu == "Middle" ~ 2,
                              edu == "High" ~ 3)) %>%
-  filter(edu_num %in% c(1,3) & sex == "Males") %>% # For the first case with only two education groups
+  filter(edu_num %in% c(1,3) & sex == "F") %>% # For the first case with only two education groups
   arrange(sex, edu_num, age) %>%
   .$edu
 
 # Mortality rate of the total population
 # Estimated as the population-weighted average of the education-specific mortality rates
-mu_tot <- us_edu %>%
-  filter(edu %in% c("Low", "High") & sex == "Males") %>%
+mu_tot <- swe_edu %>%
+  filter(edu %in% c("Low", "High") & sex == "F") %>%
   mutate(pop = case_when(edu == "High" ~ pop * p,            # Change size for cases 1, 2, 3
                          TRUE ~ pop)) %>%
   group_by(age) %>%
@@ -149,52 +149,40 @@ mu_tot <- us_edu %>%
 # Estimate all scenarios of education misreporting
 
 # Define data frame to save results
-scen_e <- setNames(data.frame(matrix(ncol = 10, nrow = 0)), 
-                    c("education","age", "mu_real", "mu_observed", "ll", "ul", "i", "j", "k", "l"))
+scen <- setNames(data.frame(matrix(ncol = 8, nrow = 0)), 
+                c("education","age", "mu_real", "mu_observed", "ll", "ul", "i", "j"))
 
-for (i in seq(0,.7,.1)) {
-  for (j in seq(0,.7,.1)) {
-    for (k in seq(0,.4,.1)) {
-      for (l in seq(0,.4,.1)) {
-        # Education misreporting in death certificates
-        M_0 <- matrix(0 , n, n)
-        M_ll <- diag(1-i, n, n)
-        M_lh <- diag(i, n, n)
-        M_hl <- diag(j, n, n)
-        M_hh <- diag(1-j, n, n)
-        
-        # Matrix with education misreporting rates in death certificates
-        M <- rbind(cbind(M_ll, M_hl), cbind(M_lh, M_hh))
-        colSums(M) # Rows have to sum up to 1
-        
-        # Education misreporting in the census
-        M_0_e <- matrix(0 , n, n)
-        M_ll_e <- diag(1-k, n, n)
-        M_lh_e <- diag(k, n, n)
-        M_hl_e <- diag(l, n, n)
-        M_hh_e <- diag(1-l, n, n)
-        
-        # Matrix with education missreporting rates in the census
-        M_e <- rbind(cbind(M_ll_e, M_hl_e), cbind(M_lh_e, M_hh_e))
-        colSums(M_e) # Rows have to sum up to 1
-        
-        temp <- simulation_w_exposures(Nx = mNx, gamma = gamma, coverage = C, age_mis = P, edu_mis = M, 
-                                       ages, g,  coverage_exp = C, age_mis_exp = P, 
-                                       edu_mis_exp = M_e, edu_cat = edu) %>%
-          mutate(i = i, j = j, k = k, l = l)
-        
-      scen_e <- rbind(scen_e, temp)
-      }
-    }
+for (i in seq(0,.5,.02)) {
+  for (j in seq(0,.5,.02)) {
+    M_0 <- matrix(0 , n, n)
+    M_ll <- diag(1-i, n, n)
+    M_lh <- diag(i, n, n)
+    M_hl <- diag(j, n, n)
+    M_hh <- diag(1-j, n, n)
+
+    # Matrix with education misreporting
+    M <- rbind(cbind(M_ll, M_hl), cbind(M_lh, M_hh))
+    colSums(M) # Rows have to sum up to 1
+    
+    temp <- scenario_func(Nx = mNx, gamma = gamma, coverage = C, age_mis = P, edu_mis = M, 
+                          ages, g, edu_cat = edu) %>%
+      mutate(i = i, j = j)
+    
+    scen <- rbind(scen, temp)
   }
 }
 
-scen_e = list(scen = scen_e, edu_ranks = edu_ranks_2, edu_weights = edu_weights_2)
+ineq_bias <- run_ineq_measures(ex = scen, seq_i = seq(0,0.5,.02), seq_j = seq(0,0.5,.02),
+                                   edu_ranks = edu_ranks_2, 
+                                   edu_weights = edu_weights_2)
+
+scen = list(scen = scen, edu_ranks = edu_ranks_2, edu_weights = edu_weights_2, 
+              ineq_bias = ineq_bias)
 
 # ---------------------------------------------------------------------------- #
 #     3. Save results
 # ---------------------------------------------------------------------------- #
-save(scen_e, file = paste0("Results/US/",case_nm,"/scen_e.rds"))
+save(scen, file = paste0("Results/SWE/",case_nm,"/scen.rds"))
 
 
 

@@ -1,7 +1,6 @@
 
 # ---------------------------------------------------------------------------- #
 # Project:  Estimating bias in educational inequalities in mortality
-# Author: Ana C. Gomez-Ugarte
 # Title: Plot relative bias in inequality measures for the 3 group setting,
 # baseline case
 # ---------------------------------------------------------------------------- #
@@ -21,13 +20,13 @@ library(dplyr)
 library(ggplot2)
 
 # Import functions
-source("R/Function_Simulation.R")
+source("R/01_Function_Simulation.R")
 
 # ---------------------------------------------------------------------------- #
 #     1. Read data
 # ---------------------------------------------------------------------------- #
 
-load("Results/US/case_1/scen3.rds")
+load("Results/US/case_1/scen3_v2.rds")
 
 rel_bias <- scen3$ineq_bias$rel_bias_ex
 
@@ -37,7 +36,7 @@ ineq <- scen3$ineq_bias$ineq
 #     2. Create figure
 # ---------------------------------------------------------------------------- #
 
-selected_measure = "range_ex"
+selected_measure = "aid"
 
 rel_bias %>%
   filter((j == "0" & l %in% seq(0, 0.4, 0.1)) |(j == "0.1" & l %in% seq(0, 0.4, 0.1)) |
@@ -80,7 +79,7 @@ rel_bias %>%
 #     3. Save figure
 # ---------------------------------------------------------------------------- #
 
-ggsave(paste0("Figures/bias_3groups_",selected_measure,".pdf"), 
+ggsave(paste0("Figures/bias_3groups_",selected_measure,"_v2.pdf"), 
               width = 11.55, height = 9.34, device = cairo_pdf)
 
 

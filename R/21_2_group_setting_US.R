@@ -1,7 +1,6 @@
 
 # ---------------------------------------------------------------------------- #
 # Project:  Estimating bias in educational inequalities in mortality
-# Author: Ana C. Gomez-Ugarte
 # Title": Estimate scenarios for 2 groups (US data)
 # ---------------------------------------------------------------------------- #
 # Content:
@@ -23,32 +22,32 @@ library(ggplot2)
 library(broom)
 
 # Import functions
-source("R/Function_Simulation.R")
+source("R/01_Function_Simulation.R")
 
 # ---------------------------------------------------------------------------- #
 #     1. Read data
 # ---------------------------------------------------------------------------- #
 
 # Underlying mortality (smooth rates)
-load("inter_data/mx_true_us_2004_2006_hendi_2groups.RData")
+load("inter_data/US/mx_true_us_2004_2006_hendi_2groups_v2.RData")
 
 # WHO standard population 
-who_std <- read.csv("Data/WHO_std_single_age_90+.csv")
+who_std <- read.csv("Data/WHO_std_single_age_110.csv")
 
 # ---------------------------------------------------------------------------- #
 #     2. Set up the variables/matrices for the scenarios
 # ---------------------------------------------------------------------------- #
 
-us_edu <- eta.hat_df
+us_edu <- mx.ungrp_df
 
 # Define variables
 g = 2
-ages = c(30:90)
+ages = unique(mx.ungrp_df$age)
 n = length(ages)
 
 # WHO standard population
 who_std <- who_std %>%
-  filter(Age >= 30 & Age<= 90) %>%
+  # filter(Age >= 30 & Age<= 90) %>%
   mutate(Prop = Prop/sum(Prop)) %>%
   rename(age = Age) 
 
@@ -57,8 +56,8 @@ case_nm = "case_1"
 p = 1          # Case 1, 4, 5
 # p = 0.5        # Case 2
 # p = 5          # Case 3
-ineq = 0       # Cases 1, 2, 3
-# ineq = 0.5     # Case 4
+# ineq = 0       # Cases 1, 2, 3
+ineq = 0.5     # Case 4
 # ineq = -0.2     # Case 5
 
 # True mortality rate
@@ -66,7 +65,7 @@ gamma <- us_edu %>%
   mutate(edu_num = case_when(edu == "Low" ~ 1,
                              edu == "Middle" ~ 2,
                              edu == "High" ~ 3)) %>%
-  filter(edu_num %in% c(1,3) & sex == "Males") %>% # For the first case with only two education groups
+  filter(edu_num %in% c(1,3) & sex == "Females") %>% # For the first case with only two education groups
   arrange(sex, edu_num, age) %>%
   mutate(mx = case_when(edu == "Low" ~ mx*exp(ineq),     # Change inequality for cases 1, 4, 5
                          TRUE ~ mx)) %>%
@@ -77,7 +76,7 @@ Nx <- us_edu %>%
   mutate(edu_num = case_when(edu == "Low" ~ 1,
                              edu == "Middle" ~ 2,
                              edu == "High" ~ 3)) %>%
-  filter(edu_num %in% c(1,3) & sex == "Males") %>% # For the first case with only two education groups
+  filter(edu_num %in% c(1,3) & sex == "Females") %>% # For the first case with only two education groups
   arrange(sex, edu_num, age) %>%
   mutate(pop = case_when(edu == "High" ~ pop * p,             # Change size for cases 1, 2, 3
                          TRUE ~ pop)) %>%
@@ -96,7 +95,7 @@ P <- diag(2*n)
 
 # Education ranks (for inequality measures)
 edu_ranks_2 <- us_edu %>%
-  filter(edu %in% c("Low", "High") & sex == "Males") %>%
+  filter(edu %in% c("Low", "High") & sex == "Females") %>%
   mutate(pop = case_when(edu == "High" ~ pop * p,           # Change size for cases 1, 2, 3
                          TRUE ~ pop)) %>%
   mutate(pop = case_when(edu == "Low" ~ pop * exp(-ineq),      # Change inequality for cases 1, 4, 5
@@ -114,7 +113,7 @@ edu_ranks_2 <- us_edu %>%
 
 # Education weights (for inequality measures)
 edu_weights_2 <- us_edu %>%
-  filter(edu %in% c("Low", "High") & sex == "Males") %>% 
+  filter(edu %in% c("Low", "High") & sex == "Females") %>% 
   mutate(pop = case_when(edu == "High" ~ pop * p,             # Change size for cases 1, 2, 3
                          TRUE ~ pop)) %>%
   mutate(pop = case_when(edu == "Low" ~ pop * exp(-ineq),      # Change inequality for cases 1, 4, 5
@@ -130,14 +129,14 @@ edu <- us_edu %>%
   mutate(edu_num = case_when(edu == "Low" ~ 1,
                              edu == "Middle" ~ 2,
                              edu == "High" ~ 3)) %>%
-  filter(edu_num %in% c(1,3) & sex == "Males") %>% # For the first case with only two education groups
+  filter(edu_num %in% c(1,3) & sex == "Females") %>% # For the first case with only two education groups
   arrange(sex, edu_num, age) %>%
   .$edu
 
 # Mortality rate of the total population
 # Estimated as the population-weighted average of the education-specific mortality rates
 mu_tot <- us_edu %>%
-  filter(edu %in% c("Low", "High") & sex == "Males") %>%
+  filter(edu %in% c("Low", "High") & sex == "Females") %>%
   mutate(pop = case_when(edu == "High" ~ pop * p,            # Change size for cases 1, 2, 3
                          TRUE ~ pop)) %>%
   group_by(age) %>%
@@ -183,7 +182,7 @@ scen = list(scen = scen, edu_ranks = edu_ranks_2, edu_weights = edu_weights_2,
 # ---------------------------------------------------------------------------- #
 #     3. Save results
 # ---------------------------------------------------------------------------- #
-save(scen, file = paste0("Results/US/",case_nm,"/scen.rds"))
+save(scen, file = paste0("Results/US/",case_nm,"/scen_v2.rds"))
 
 
 

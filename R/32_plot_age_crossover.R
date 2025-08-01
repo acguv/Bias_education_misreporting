@@ -1,7 +1,7 @@
 
 # ---------------------------------------------------------------------------- #
 # Project:  Estimating bias in educational inequalities in mortality
-# Author: Ana C. Gomez-Ugarte
+# Title:    Plot age at crossover
 # ---------------------------------------------------------------------------- #
 # Content:
 #   0. Working directory, packages and functions
@@ -22,7 +22,7 @@ library(ggplot2)
 #     1. Read data
 # ---------------------------------------------------------------------------- #
 dir_path <- "Results/US"
-file_name <- "scen.rds"
+file_name <- "scen_v2.rds"
 
 cases <- list()
 i = 1
@@ -58,19 +58,19 @@ all_cases %>%
   theme_classic() +
   ylab("Age at crossover") + xlab("Percentage of overreporting (low to high)") +
   scale_x_continuous(labels = scales::percent_format()) + 
-  ylim(c(60,90)) +
+  ylim(c(40,110)) +
   scale_color_manual(name = "Case", values = c("#648FFF", "#785EF0", "#DC267F", "#FE6100", "#FFB000"), 
-                     labels = c("1) Baseline inequality\nand population composition",
+                     labels = c("1) Baseline inequality\nand death composition",
                                 "2) Baseline inequality +\nhigher % of low educ. deaths", 
                                 "3) Baseline inequality +\nlower % of low educ. deaths",
-                                "4) Higher inequality +\nbaseline composition", 
-                                "5) Lower inequality +\nbaseline composition"))  +
+                                "4) Higher inequality +\nbaseline death composition", 
+                                "5) Lower inequality +\nbaseline death composition"))  +
   scale_shape_manual(name = "Case", values = c(15, 18, 16, 17, 19), 
-                     labels = c("1) Baseline inequality\nand population composition",
+                     labels = c("1) Baseline inequality\nand death composition",
                                 "2) Baseline inequality +\nhigher % of low educ. deaths", 
                                 "3) Baseline inequality +\nlower % of low educ. deaths",
-                                "4) Higher inequality +\nbaseline composition", 
-                                "5) Lower inequality +\nbaseline composition"))  +
+                                "4) Higher inequality +\nbaseline death composition", 
+                                "5) Lower inequality +\nbaseline death composition"))  +
   theme(axis.text = element_text(size = 11),
         axis.title = element_text(size = 12),
         legend.position = "right", 
@@ -86,4 +86,4 @@ all_cases %>%
 # ---------------------------------------------------------------------------- #
 #     3. Save figure
 # ---------------------------------------------------------------------------- #
-ggsave("Figures/age_crossover.pdf", width = 175, units = "mm", device = cairo_pdf)
+ggsave("Figures/US/age_crossover_v2.pdf", width = 175, units = "mm", device = cairo_pdf)
