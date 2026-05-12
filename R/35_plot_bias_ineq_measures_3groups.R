@@ -54,15 +54,15 @@ rel_bias %>%
   geom_raster() +
   scale_fill_gradient2(midpoint = 0, limits = c(-1, 1),     
     oob = scales::squish, breaks = c(-1, -.5, 0, .5, 1),   
-    labels = c("≤-100%", "-50%", "0%", "50%", "≥100%"), name = "Relative Bias") +
+    labels = c("≤-100", "-50", "0", "50", "≥100"), name = "Relative bias\n(percentage)") +
   theme_bw() +
-  scale_x_continuous(labels = scales::percent_format(), breaks=seq(0,0.4,.1), expand = c(0, 0)) + 
-  scale_y_continuous(labels = scales::percent_format(), breaks=seq(0,0.4,.1), expand = c(0, 0)) +
-  xlab("Low as middle (overreporting)") + 
-  ylab("High as middle (underreporting)") + 
+  scale_x_continuous(labels = seq(0,40,10), breaks=seq(0,0.4,.1), expand = c(0, 0)) + 
+  scale_y_continuous(labels = seq(0,40,10), breaks=seq(0,0.4,.1), expand = c(0, 0)) +
+  xlab("Percentage of education over-reporting\n(low reported as middle)") + 
+  ylab("Percentage of education under-reporting\n(high reported as middle)") + 
   theme(panel.grid = element_blank()) + 
-  facet_grid(l~j, labeller = as_labeller(c("0" = "0%", "0.1" = "10%",
-                                           "0.2" = "20%", "0.3" = "30%", "0.4" = "40%"))) +
+  facet_grid(l~j, labeller = as_labeller(c("0" = "0", "0.1" = "10",
+                                           "0.2" = "20", "0.3" = "30", "0.4" = "40"))) +
   theme(axis.text = element_text(size = 11),
         axis.title = element_text(size = 12),
         strip.text = element_text(size = 13, face = "bold", hjust = 0),
@@ -72,14 +72,15 @@ rel_bias %>%
         strip.placement = "outside",
         strip.background = element_blank(),
         strip.text.y = element_text(angle = 0),
-        strip.text.x = element_text(hjust = 0.5)) +
+        strip.text.x = element_text(hjust = 0.5),
+        text = element_text(family="serif")) +
   coord_equal()
 
 # ---------------------------------------------------------------------------- #
 #     3. Save figure
 # ---------------------------------------------------------------------------- #
 
-ggsave(paste0("Figures/bias_3groups_",selected_measure,"_v2.pdf"), 
+ggsave(paste0("Figures/US/bias_3groups_",selected_measure,"_v2.pdf"), 
               width = 11.55, height = 9.34, device = cairo_pdf)
 
 

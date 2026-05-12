@@ -26,6 +26,9 @@ library(scales)
 dir_path <- "Results/US"
 file_name <- "scen_v2.rds"
 
+# dir_path <- "Results/SWE"
+# file_name <- "scen.rds"
+
 rel_bias_cases <- ineq_cases <- list()
 i = 1
 
@@ -58,7 +61,7 @@ ineq_cases <- do.call(rbind, ineq_cases)
 # For labels
 subtitle_df <- data.frame(
   measure = c("range_ex", "aid"),
-  subtitle = c("A", "B"),
+  subtitle = c("(a)", "(b)"),
   i = 0, j = 0.5) %>%   
   mutate(measure = factor(measure, levels = c("range_ex", "aid")))
 
@@ -74,14 +77,15 @@ plot_rel_bias_range_ex_aid <- rel_bias_cases %>%
   geom_text(data = . %>% filter((i == 0.2 & j == 0) |
                                   (i == 0 & j == 0.2)),
             aes(label=c("U", "O", "U", "O")),
-            fontface = "bold", size = 3, col = "yellow")  +
-  geom_text(data = subtitle_df,
-            aes(x = i, y = j, label = subtitle),
-            inherit.aes = FALSE,
-            hjust = 0, vjust = 1,  
-            size = 4,
-            fontface = "bold",
-            color = "white") +
+            fontface = "bold", size = 3, col = "yellow", family = "serif")  +
+  # geom_text(data = subtitle_df,
+  #           aes(x = i, y = j, label = subtitle),
+  #           inherit.aes = FALSE,
+  #           hjust = 0, vjust = 1,  
+  #           size = 4,
+  #           fontface = "bold",
+  #           color = "white", 
+  #           family = "serif") +
   geom_point(data = ineq_cases %>%
                mutate(case = str_sub(case, start = 6)) %>%
                relocate(c(i,j), .before = range_asmr) %>%
@@ -99,24 +103,26 @@ plot_rel_bias_range_ex_aid <- rel_bias_cases %>%
     limits = c(-1, 1),     
     oob = scales::squish,     
     breaks = c(-1, -.5, 0, .5, 1),   
-    labels = c("≤-100%", "-50%", "0%", "50%", "≥100%")) +
+    labels = c("≤-100", "-50", "0", "50", "≥100"), 
+    name = "Bias\n(percentage)") +
   theme_bw() +
-  scale_x_continuous(labels = scales::percent_format(), breaks=seq(0,0.7,.1), expand = c(0, 0)) + 
-  scale_y_continuous(labels = scales::percent_format(), breaks=seq(0,0.7,.1), expand = c(0, 0)) +
-  xlab("Low to high (overreporting)") + 
-  ylab("High to low (underreporting)") + 
+  scale_x_continuous(labels = seq(0,70,10), breaks=seq(0,0.7,.1), expand = c(0, 0)) + 
+  scale_y_continuous(labels = seq(0,70,10), breaks=seq(0,0.7,.1), expand = c(0, 0)) +
+  xlab("Percentage of education over-reporting") + 
+  ylab("Percentage of education under-reporting") + 
   theme(panel.grid = element_blank()) + 
-  facet_grid(~measure, labeller = labeller(measure = c("range_ex" =  "Life expectancy range",
-                                                       "aid" = "Average inter-group difference"))) +
+  facet_grid(~measure, labeller = labeller(measure = c("range_ex" =  "(a) Life expectancy range",
+                                                       "aid" = "(b) Average intergroup difference"))) +
   theme(axis.text = element_text(size = 11),
         axis.title = element_text(size = 12),
         strip.text = element_text(size = 13, face = "bold", hjust = 0),
         legend.text = element_text(size = 11),
-        legend.title = element_text(size = 13),
+        legend.title = element_text(size = 12),
         legend.position = "right",
         strip.placement = "outside",
         strip.background = element_blank(),
-        panel.spacing = unit(1, "lines")) +
+        panel.spacing = unit(1, "lines"),
+        text = element_text(family="serif")) +
   coord_equal()
 
 #### Plot for all measures (relative or absolute)
@@ -125,30 +131,30 @@ plot_rel_bias_all <- rel_bias_cases %>%
   relocate(c(i,j), .before = range_asmr) %>%
   gather("measure", "Bias", "range_asmr":"noi_pair_logit") %>%
   # Select measures to plot
-  filter(measure %in% c("aid", "cii_abs", "idll_abs", "noi_pair",
-                        "pall_abs", "par", "range_ex") & case == 1) %>%
-  mutate(measure = factor(measure, levels = c("range_ex", "par", "pall_abs",
-                                              "cii_abs","aid", "noi_pair", "idll_abs"))) %>%
-  # filter(measure %in% c("ratio_ex", "paf", "pall_rel",
-  #                       "pseudo_gini","theil", "idll_rel", "noi_pair") & case == 1) %>%
-  # mutate(measure = factor(measure, levels = c("ratio_ex", "paf", "pall_rel",
-  #                                             "pseudo_gini","theil", "idll_rel", "noi_pair"))) %>%
+  # filter(measure %in% c("aid", "cii_abs", "idll_abs", "noi_pair",
+  #                       "pall_abs", "par", "range_ex") & case == 1) %>%
+  # mutate(measure = factor(measure, levels = c("range_ex", "par", "pall_abs",
+  #                                             "cii_abs","aid", "noi_pair", "idll_abs"))) %>%
+  filter(measure %in% c("ratio_ex", "paf", "pall_rel",
+                        "pseudo_gini","theil", "idll_rel", "noi_pair") & case == 1) %>%
+  mutate(measure = factor(measure, levels = c("ratio_ex", "paf", "pall_rel",
+                                              "pseudo_gini","theil", "idll_rel", "noi_pair"))) %>%
   ggplot(aes(x = i, y = j, fill = Bias)) +
   geom_raster() +
   scale_fill_gradient2( midpoint = 0, limits = c(-1, 1), oob = scales::squish,     
-    breaks = c(-1, -.5, 0, .5, 1), labels = c("≤-100%", "-50%", "0%", "50%", "≥100%"), 
-    name = "Relative Bias") +
+    breaks = c(-1, -.5, 0, .5, 1), labels = c("≤-100", "-50", "0", "50", "≥100"), 
+    name = "Relative bias\n(percentage)") +
   theme_bw() +
-  scale_x_continuous(labels = scales::percent_format(), breaks=seq(0,0.7,.1), expand = c(0, 0)) + 
-  scale_y_continuous(labels = scales::percent_format(), breaks=seq(0,0.7,.1), expand = c(0, 0)) +
-  xlab("Low to high (overreporting)") + 
-  ylab("High to low (underreporting)") + 
+  scale_x_continuous(labels = seq(0,70,10), breaks=seq(0,0.7,.1), expand = c(0, 0)) + 
+  scale_y_continuous(labels = seq(0,70,10), breaks=seq(0,0.7,.1), expand = c(0, 0)) +
+  xlab("Percentage of education over-reporting") + 
+  ylab("Percentage of education under-reporting") + 
   theme(panel.grid = element_blank()) + 
   facet_wrap(~measure, labeller = labeller(measure = c("range_ex" =  "Range in life expectancy",
                                                        "range_sdv" = "Range in standard deviation of ages-at-death",
                                                        "noi_pair" = "Pairwise non-overlap index", 
                                                        "sii_ex" = "Slope index of inequality", 
-                                                       "aid" = "Average inter-group difference", 
+                                                       "aid" = "Average intergroup difference", 
                                                        "cii_abs" = "Absolute composite index of inequality",
                                                        "idll_abs" = "Absolute index of dissimilarity in length of life", 
                                                        "pall_abs" = "Absolute population attributable life loss", 
@@ -169,14 +175,17 @@ plot_rel_bias_all <- rel_bias_cases %>%
         legend.position = c(0.85, 0.15),
         strip.placement = "outside",
         strip.background = element_blank(),
-        panel.spacing = unit(1, "lines"))
+        panel.spacing = unit(1, "lines"),
+        text = element_text(family="serif"))
 
 # ---------------------------------------------------------------------------- #
 #     3. Save figure
 # ---------------------------------------------------------------------------- #
 
 ggsave(plot_rel_bias_range_ex_aid, file = "Figures/US/bias_2groups_v2.pdf", width = 8.7, height = 4.2, device = cairo_pdf)
-ggsave(plot_rel_bias_all, file = "Figures/US/bias_2groups_abs_measures_all_v2.pdf", width = 13.5, height = 13, device = cairo_pdf)
+# ggsave(plot_rel_bias_range_ex_aid, file = "Figures/US/bias_2groups_v2.jpeg", width = 8.7, height = 4.2, dpi = 300)
+# ggsave(plot_rel_bias_all, file = "Figures/US/bias_2groups_abs_measures_all_v2.pdf", width = 13.5, height = 13, device = cairo_pdf)
+ggsave(plot_rel_bias_all, file = "Figures/US/bias_2groups_rel_measures_all_v2.pdf", width = 13.5, height = 13, device = cairo_pdf)
 
 # ggsave(plot_rel_bias_range_ex_aid, file = "Figures/SWE/bias_2groups.pdf", width = 8.7, height = 4.2, device = cairo_pdf)
 # ggsave(plot_rel_bias_all, file = "Figures/SWE/bias_2groups_abs_measures_all_v2.pdf", width = 13.5, height = 13, device = cairo_pdf)

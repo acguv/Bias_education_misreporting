@@ -20,6 +20,7 @@ library(dplyr)
 library(ggplot2)
 library(broom)
 library(ggpubr)
+library(extrafont)
 
 # ---------------------------------------------------------------------------- #
 #     1. Read data
@@ -48,7 +49,7 @@ under_plot <- scen$scen %>%
                 group = paste(education, Scenario)), linewidth = 1) +
   theme_classic() + xlab("Age") + 
   ylab("") +
-  labs(title = paste0("B. Underreporting")) +
+  labs(title = paste0("(b) Under-reporting")) +
   scale_x_continuous(breaks = seq(30,110,10), labels = c(seq(30,100,10), "110+")) +
   scale_y_continuous(breaks = seq(-8,-2,2), limits = c(-8.5,  -0.4)) +
   scale_size_manual(values = c(0.5, 0.75)) +
@@ -60,7 +61,8 @@ under_plot <- scen$scen %>%
         legend.position = "bottom", 
         legend.title = element_text(size = 12), 
         legend.text = element_text(size = 12), 
-        plot.title = element_text(size = 13, face = "bold")) 
+        plot.title = element_text(size = 13, face = "bold"), 
+        text=element_text(family="serif")) 
 
 
 # Plot for overreporting of education
@@ -76,7 +78,7 @@ over_plot <- scen$scen %>%
                 group = paste(education, Scenario)), linewidth = 1) +
   theme_classic() + xlab("Age") + 
   ylab("Mortality rate (log scale)") +
-  labs(title = paste0("A. Overreporting")) +
+  labs(title = paste0("(a) Over-reporting")) +
   scale_x_continuous(breaks = seq(30,110,10), labels = c(seq(30,100,10), "110+")) +
   scale_y_continuous(breaks = seq(-8,-2,2), limits = c(-8.5, -0.4)) +
   scale_size_manual(values = c(0.5, 0.75)) +
@@ -88,7 +90,8 @@ over_plot <- scen$scen %>%
         legend.position = "bottom", 
         legend.title = element_text(size = 12), 
         legend.text = element_text(size = 12), 
-        plot.title = element_text(size = 13, face = "bold"))
+        plot.title = element_text(size = 13, face = "bold"), 
+        text=element_text(family="serif"))
 
 # Merge both plots
 over_under_plot <- ggarrange(over_plot, under_plot, 
@@ -109,7 +112,7 @@ both_plot <- scen$scen %>%
                 group = paste(education, Scenario)), linewidth = 1) +
   theme_classic() + xlab("Age") + 
   ylab("Mortality rate (log scale)") +
-  labs(title = paste0("Under- (", under_rate*100, "%) and over-reporting (", over_rate*100, "%)")) +
+  labs(title = paste0("Under- (", under_rate*100, " per cent) and over-reporting (", over_rate*100, " per cent)")) +
   scale_x_continuous(breaks = seq(30,110,10), labels = c(seq(30,100,10), "110+")) +
   scale_y_continuous(breaks = seq(-8,-2,2), limits = c(-8.5, -0.4)) +
   scale_size_manual(values = c(0.5, 0.75)) +
@@ -121,13 +124,15 @@ both_plot <- scen$scen %>%
         legend.position = "bottom", 
         legend.title = element_text(size = 12), 
         legend.text = element_text(size = 12), 
-        plot.title = element_text(size = 13, face = "bold"))
+        plot.title = element_text(size = 13, face = "bold"), 
+        text=element_text(family="serif"))
 
 # ---------------------------------------------------------------------------- #
 #     2. Save figures
 # ---------------------------------------------------------------------------- #
 
 ggsave(over_under_plot, file = "Figures/US/mx_2groups_v2.pdf", width = 8.8, height = 4.2, device = cairo_pdf)
+# ggsave(over_under_plot, file = "Figures/US/mx_2groups_v2.jpeg", width = 8.8, height = 4.2, dpi = 300)
 
 ggsave(both_plot, file = "Figures/US/mx_2groups_both_v2.pdf", width = 175, units = "mm")
 

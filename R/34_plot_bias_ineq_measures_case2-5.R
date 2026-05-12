@@ -23,11 +23,11 @@ library(scales)
 # ---------------------------------------------------------------------------- #
 #     1. Read data
 # ---------------------------------------------------------------------------- #
-# dir_path <- "Results/US"
-# file_name <- "scen_v2.rds"
+dir_path <- "Results/US"
+file_name <- "scen_v2.rds"
 
-dir_path <- "Results/SWE"
-file_name <- "scen.rds"
+# dir_path <- "Results/SWE"
+# file_name <- "scen.rds"
 
 rel_bias_cases <- ineq_cases <- list()
 i = 1
@@ -113,35 +113,37 @@ rel_bias_cases %>%
     limits = c(-1, 1),     
     oob = scales::squish,    
     breaks = c(-1, -.5, 0, .5, 1),   
-    labels = c("≤-100%", "-50%", "0%", "50%", "≥100%")) +
+    labels = c("≤-100", "-50", "0", "50", "≥100"), 
+    name = "Bias\n(percentage)") +
   theme_bw() +
-  scale_x_continuous(labels = scales::percent_format(), breaks=seq(0,0.7,.1), expand = c(0, 0)) + 
-  scale_y_continuous(labels = scales::percent_format(), breaks=seq(0,0.7,.1), expand = c(0, 0)) +
-  xlab("Low to high (overreporting)") + 
-  ylab("High to low (underreporting)") + 
+  scale_x_continuous(labels = seq(0,70,10), breaks=seq(0,0.7,.1), expand = c(0, 0)) + 
+  scale_y_continuous(labels = seq(0,70,10), breaks=seq(0,0.7,.1), expand = c(0, 0)) +
+  xlab("Percentage of education over-reporting") + 
+  ylab("Percentage of education under-reporting") + 
   theme(panel.grid = element_blank()) + 
-  facet_wrap(~case, labeller = labeller(case = c("2" = "Higher % of low educ. deaths",
-                                                         "3" = "Lower % of low educ. deaths",
-                                                         "4" = "Higher inequality",
-                                                         "5" = "Lower inequality"),
+  facet_wrap(~case, labeller = labeller(case = c("2" = "(a) Case 2: Higher percentage of deaths in\nlow-educated group",
+                                                         "3" = "(b) Case 3: Lower percentage of deaths in\nlow-educated group",
+                                                         "4" = "(c) Case 4: Larger inequality",
+                                                         "5" = "(d) Case 5: Smaller inequality"),
                                             case = NA),
              scales = "fixed") +
   theme(axis.text = element_text(size = 11),
         axis.title = element_text(size = 12),
         strip.text = element_text(size = 13, face = "bold", hjust = 0),
         legend.text = element_text(size = 11),
-        legend.title = element_text(size = 13),
+        legend.title = element_text(size = 12),
         legend.position = "right",
         strip.placement = "outside",
         strip.background = element_blank(),
-        panel.spacing.y = unit(1.5, "lines")) +
-  geom_text(data = subtitle_df2,
-            aes(x = i, y = j, label = subtitle),
-            inherit.aes = FALSE,
-            hjust = 0, vjust = 1,   
-            size = 4,
-            fontface = "bold",
-            color = "white") +
+        panel.spacing.y = unit(1.5, "lines"),
+        text = element_text(family="serif")) +
+  # geom_text(data = subtitle_df2,
+  #           aes(x = i, y = j, label = subtitle),
+  #           inherit.aes = FALSE,
+  #           hjust = 0, vjust = 1,   
+  #           size = 4,
+  #           fontface = "bold",
+  #           color = "white", family="serif") +
   geom_point(data = ineq_cases  %>% 
                mutate(case = str_sub(case, start = 6)) %>%
                relocate(c(i,j), .before = range_asmr) %>%
@@ -153,36 +155,37 @@ rel_bias_cases %>%
                                            measure %in% c("ratio_asmr", "ratio_ex", "rii_asmr") ~ ifelse(value <= 1, 1, 0),
                                            measure %in% c("rii_ex", "ratio_sdv") ~ ifelse(value >= 1, 1, 0))) %>%
                filter(reversal == 1), 
-             aes(x = i, y = j), colour = "black", fill = NA, pch = 1, size = 1) 
+             aes(x = i, y = j), colour = "black", fill = NA, pch = 1, size = 1) +
   # Annotations (only for range in LE)
-  # geom_abline(data = . %>% filter(case %in% c(4,5)), aes(slope = 2.7, intercept = 0.2), lty = 3, col = "white", size = 0.9) +
-  # geom_abline(data = . %>% filter(case %in% c(4,5)),aes(slope = 2.7, intercept = -0.25), lty = 3, col = "white", size = 0.9) +
-  # geom_abline(data = . %>% filter(case %in% c(2,3)), aes(slope = 2.7, intercept = 0), lty = 2, col = "white", size = 1) +
-  # geom_curve(data = . %>% filter(case == 3), aes(x = 0.15, y = 0.3, xend = 0.35, yend = 0.2),
-  #            arrow = arrow(length = unit(0.3, "cm"), type = "open"),
-  #            color = "white", curvature = -0.4, size = 0.6) +
-  # geom_curve(data = . %>% filter(case == 2), aes(x = 0.13, y = 0.34, xend = 0.10, yend = 0.4),
-  #            arrow = arrow(length = unit(0.3, "cm"), type = "open"),
-  #            color = "white", curvature = 0.4, size = 0.6) + 
-  # geom_segment(data = . %>% filter(case == 4),aes(x = .20, y = 0.28, xend = 0.25, yend = 0.23),
-  #              arrow = arrow(length = unit(0.3, "cm"), type = "open"),
-  #              color = "white", size = 0.6) + 
-  # geom_segment(data = . %>% filter(case == 4),aes(x = .06, y = 0.38, xend = 0.02, yend = 0.42),
-  #              arrow = arrow(length = unit(0.3, "cm"), type = "open"),
-  #              color = "white", size = 0.6) + 
-  # geom_segment(data = . %>% filter(case == 5),aes(x = .21, y = 0.34, xend = 0.18, yend = 0.36),
-  #              arrow = arrow(length = unit(0.3, "cm"), type = "open"),
-  #              color = "white", size = 0.6) + 
-  # geom_segment(data = . %>% filter(case == 5),aes(x = .03, y = 0.28, xend = 0.06, yend = 0.25),
-  #              arrow = arrow(length = unit(0.3, "cm"), type = "open"),
-  #              color = "white", size = 0.6) +
-  # coord_equal()
+  geom_abline(data = . %>% filter(case %in% c(4,5)), aes(slope = 2.7, intercept = 0.2), lty = 3, col = "white", size = 0.9) +
+  geom_abline(data = . %>% filter(case %in% c(4,5)),aes(slope = 2.7, intercept = -0.25), lty = 3, col = "white", size = 0.9) +
+  geom_abline(data = . %>% filter(case %in% c(2,3)), aes(slope = 2.7, intercept = 0), lty = 2, col = "white", size = 1) +
+  geom_curve(data = . %>% filter(case == 3), aes(x = 0.15, y = 0.3, xend = 0.35, yend = 0.2),
+             arrow = arrow(length = unit(0.3, "cm"), type = "open"),
+             color = "white", curvature = -0.4, size = 0.6) +
+  geom_curve(data = . %>% filter(case == 2), aes(x = 0.13, y = 0.34, xend = 0.10, yend = 0.4),
+             arrow = arrow(length = unit(0.3, "cm"), type = "open"),
+             color = "white", curvature = 0.4, size = 0.6) +
+  geom_segment(data = . %>% filter(case == 4),aes(x = .20, y = 0.28, xend = 0.25, yend = 0.23),
+               arrow = arrow(length = unit(0.3, "cm"), type = "open"),
+               color = "white", size = 0.6) +
+  geom_segment(data = . %>% filter(case == 4),aes(x = .06, y = 0.38, xend = 0.02, yend = 0.42),
+               arrow = arrow(length = unit(0.3, "cm"), type = "open"),
+               color = "white", size = 0.6) +
+  geom_segment(data = . %>% filter(case == 5),aes(x = .21, y = 0.34, xend = 0.18, yend = 0.36),
+               arrow = arrow(length = unit(0.3, "cm"), type = "open"),
+               color = "white", size = 0.6) +
+  geom_segment(data = . %>% filter(case == 5),aes(x = .03, y = 0.28, xend = 0.06, yend = 0.25),
+               arrow = arrow(length = unit(0.3, "cm"), type = "open"),
+               color = "white", size = 0.6) +
+  coord_equal()
 
 # ---------------------------------------------------------------------------- #
 #     3. Save figure
 # ---------------------------------------------------------------------------- #
 
-# ggsave(paste0("Figures/US/bias_2groups_scenarios_v2_",sel_measure,".pdf"), width = 10.64, height = 10, device = cairo_pdf)
-ggsave(paste0("Figures/SWE/bias_2groups_scenarios_v2_",sel_measure,".pdf"), width = 10.64, height = 10, device = cairo_pdf)
+ggsave(paste0("Figures/US/bias_2groups_scenarios_v2_",sel_measure,".pdf"), width = 9.64, height = 9, device = cairo_pdf)
+# ggsave(paste0("Figures/SWE/bias_2groups_scenarios_v2_",sel_measure,".pdf"), width = 9.64, height = 9, device = cairo_pdf)
+# ggsave(paste0("Figures/US/bias_2groups_scenarios_v2_",sel_measure,".tiff"), width = 10.64, height = 10, dpi = 300)
 
 

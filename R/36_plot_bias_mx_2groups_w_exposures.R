@@ -49,7 +49,7 @@ under_plot <- scen_e$scen %>%
                 group = paste(education, Scenario)), linewidth = 1) +
   theme_classic() + xlab("Age") + 
   ylab("") +
-  labs(title = paste0("Underreporting (", under_rate*100, "%)")) +
+  labs(title = paste0("(b) Under-reporting (", under_rate*100, " per cent)")) +
   scale_x_continuous(breaks = seq(30,110,10), labels = c(seq(30,100,10), "110+")) +
   scale_y_continuous(breaks = seq(-8,-2,2), limits = c(-8.5, -0.4)) +
   scale_size_manual(values = c(0.5, 0.75)) +
@@ -61,7 +61,8 @@ under_plot <- scen_e$scen %>%
         legend.position = "bottom", 
         legend.title = element_text(size = 12), 
         legend.text = element_text(size = 12), 
-        plot.title = element_text(size = 13, face = "bold")) 
+        plot.title = element_text(size = 13, face = "bold"),
+        text = element_text(family="serif")) 
 
 
 # Plot for overreporting of education
@@ -77,7 +78,7 @@ over_plot <- scen_e$scen %>%
                 group = paste(education, Scenario)), linewidth = 1) +
   theme_classic() + xlab("Age") + 
   ylab("Mortality rate (log scale)") +
-  labs(title = paste0("Overreporting (", under_rate*100, "%)")) +
+  labs(title = paste0("(a) Over-reporting (", under_rate*100, " per cent)")) +
   scale_x_continuous(breaks = seq(30,110,10), labels = c(seq(30,100,10), "110+")) +
   scale_y_continuous(breaks = seq(-8,-2,2), limits = c(-8.5, -0.4)) +
   scale_size_manual(values = c(0.5, 0.75)) +
@@ -89,7 +90,8 @@ over_plot <- scen_e$scen %>%
         legend.position = "bottom", 
         legend.title = element_text(size = 12), 
         legend.text = element_text(size = 12), 
-        plot.title = element_text(size = 13, face = "bold"))
+        plot.title = element_text(size = 13, face = "bold"),
+        text = element_text(family="serif"))
 
 # Merge both plots
 over_under_plot <- ggarrange(over_plot, under_plot, 

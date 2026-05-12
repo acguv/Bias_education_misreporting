@@ -54,23 +54,23 @@ all_cases %>%
   filter(j == 0) %>%
   summarise(cross_age = min(age)) %>%
   ggplot() +
-  geom_point(aes(y = cross_age, x = i, color = factor(case), pch = factor(case)), size = 4) +
+  geom_point(aes(y = cross_age, x = i*100, color = factor(case), pch = factor(case)), size = 4) +
   theme_classic() +
-  ylab("Age at crossover") + xlab("Percentage of overreporting (low to high)") +
-  scale_x_continuous(labels = scales::percent_format()) + 
+  ylab("Age at crossover") + xlab("Percentage of over-reporting (low to high)") +
+  # scale_x_continuous(labels = scales::percent_format()) + 
   ylim(c(40,110)) +
   scale_color_manual(name = "Case", values = c("#648FFF", "#785EF0", "#DC267F", "#FE6100", "#FFB000"), 
-                     labels = c("1) Baseline inequality\nand death composition",
-                                "2) Baseline inequality +\nhigher % of low educ. deaths", 
-                                "3) Baseline inequality +\nlower % of low educ. deaths",
-                                "4) Higher inequality +\nbaseline death composition", 
-                                "5) Lower inequality +\nbaseline death composition"))  +
+                     labels = c("(1) Baseline inequality\nand death composition",
+                                "(2) Baseline inequality +\nhigher percentage deaths\nin low-educated group", 
+                                "(3) Baseline inequality +\nlower percentage deaths\nin low-educated group",
+                                "(4) Higher inequality +\nbaseline death composition", 
+                                "(5) Lower inequality +\nbaseline death composition"))  +
   scale_shape_manual(name = "Case", values = c(15, 18, 16, 17, 19), 
-                     labels = c("1) Baseline inequality\nand death composition",
-                                "2) Baseline inequality +\nhigher % of low educ. deaths", 
-                                "3) Baseline inequality +\nlower % of low educ. deaths",
-                                "4) Higher inequality +\nbaseline death composition", 
-                                "5) Lower inequality +\nbaseline death composition"))  +
+                     labels = c("(1) Baseline inequality\nand death composition",
+                                "(2) Baseline inequality +\nhigher percentage deaths\nin low-educated group", 
+                                "(3) Baseline inequality +\nlower percentage deaths\nin low-educated group",
+                                "(4) Higher inequality +\nbaseline death composition", 
+                                "(5) Lower inequality +\nbaseline death composition"))  +
   theme(axis.text = element_text(size = 11),
         axis.title = element_text(size = 12),
         legend.position = "right", 
@@ -79,7 +79,9 @@ all_cases %>%
         legend.title = element_text(size = 12, face = "bold"),
         legend.text = element_text(size = 10),
         legend.key.size = unit(1, "lines"),
-        legend.spacing.x = unit(0.5, "cm")) +
+        legend.spacing.x = unit(0.5, "cm"), 
+        text = element_text(family="serif"), 
+        legend.key.height=unit(1.5, "cm")) +
   guides(color = guide_legend(nrow = 5)) 
 
 
@@ -87,3 +89,4 @@ all_cases %>%
 #     3. Save figure
 # ---------------------------------------------------------------------------- #
 ggsave("Figures/US/age_crossover_v2.pdf", width = 175, units = "mm", device = cairo_pdf)
+ggsave("Figures/US/age_crossover_v2.jpg", width = 175, units = "mm", dpi = 300)
